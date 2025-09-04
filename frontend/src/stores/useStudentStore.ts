@@ -4,10 +4,12 @@ import type {
   Student,
   StrandStudentRef,
   StrandKey,
+  CompetenceClasses,
+  Competence,
 } from "../types/education";
 import { studentService } from "../services/studentService";
 import { getStrandDisplayName } from "../utils/strands";
-import { getCompetenceColor } from "../utils/competence";
+import { getCompetenceClasses } from "../utils/competence";
 
 interface StudentState {
   classProfile: ClassProfile | null;
@@ -26,8 +28,6 @@ interface StudentState {
   // Selectors/Helpers
   getStudentById: (id: string) => Student | undefined;
   getFilteredStudents: (strandStudents: StrandStudentRef[]) => StrandStudentRef[];
-  getCompetenceColor: (c: string) => string;
-  getStrandDisplayName: (key: StrandKey) => string;
 }
 
 export const useStudentStore = create<StudentState>((set, get) => ({
@@ -71,8 +71,4 @@ export const useStudentStore = create<StudentState>((set, get) => ({
     if (!q) return strandStudents;
     return strandStudents.filter((st) => st.name.toLowerCase().includes(q));
   },
-
-  getCompetenceColor: (c) => getCompetenceColor(c),
-
-  getStrandDisplayName: (key) => getStrandDisplayName(key),
 }));

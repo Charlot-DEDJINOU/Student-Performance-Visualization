@@ -1,6 +1,7 @@
 import React, { useCallback, memo } from "react";
 import { View, Text, FlatList, ListRenderItem } from "react-native";
 import type { Competence } from "../types/education";
+import { getCompetenceClasses } from "../utils/competence";
 
 type MasteryItem = {
   code: Competence;
@@ -9,41 +10,14 @@ type MasteryItem = {
 };
 
 const masteryLevels: MasteryItem[] = [
-  { code: "BE", meaning: "Below Expectation",      description: "Needs significant support" },
+  { code: "BE", meaning: "Below Expectation", description: "Needs significant support" },
   { code: "AE", meaning: "Approaching Expectation", description: "Developing with support" },
-  { code: "ME", meaning: "Meeting Expectation",     description: "Consistently meets standards" },
-  { code: "EE", meaning: "Exceeding Expectation",   description: "Advanced mastery achieved" },
+  { code: "ME", meaning: "Meeting Expectation", description: "Consistently meets standards" },
+  { code: "EE", meaning: "Exceeding Expectation", description: "Advanced mastery achieved" },
 ];
 
-// Couleurs par code
-const STYLE: Record<Competence, {
-  cardBg: string; cardBorder: string; title: string; body: string;
-  badgeBg: string; badgeBorder: string; badgeText: string;
-}> = {
-  BE: {
-    cardBg: "bg-red-50", cardBorder: "border-red-200",
-    title: "text-red-800", body: "text-red-700",
-    badgeBg: "bg-red-100", badgeBorder: "border-red-200", badgeText: "text-red-700",
-  },
-  AE: {
-    cardBg: "bg-yellow-50", cardBorder: "border-yellow-200",
-    title: "text-yellow-800", body: "text-yellow-700",
-    badgeBg: "bg-yellow-100", badgeBorder: "border-yellow-200", badgeText: "text-yellow-700",
-  },
-  ME: {
-    cardBg: "bg-green-50", cardBorder: "border-green-200",
-    title: "text-green-800", body: "text-green-700",
-    badgeBg: "bg-green-100", badgeBorder: "border-green-200", badgeText: "text-green-700",
-  },
-  EE: {
-    cardBg: "bg-blue-50", cardBorder: "border-blue-200",
-    title: "text-blue-800", body: "text-blue-700",
-    badgeBg: "bg-blue-100", badgeBorder: "border-blue-200", badgeText: "text-blue-700",
-  },
-};
-
 const Card = memo(({ item }: { item: MasteryItem }) => {
-  const s = STYLE[item.code];
+  const s = getCompetenceClasses(item.code);
   return (
     <View className={`w-60 ${s.cardBg} ${s.cardBorder} border rounded-xl p-3`}>
       <View className="flex-row items-center justify-between mb-1">

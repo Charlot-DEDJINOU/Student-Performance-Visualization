@@ -46,3 +46,13 @@ export interface Student {
   name: string;
   strands: StudentStrands;
 }
+
+export interface CompetenceClasses {
+  cardBg: string,
+  cardBorder: string,
+  title: string,
+  body: string,
+  badgeBg: string,
+  badgeBorder: string,
+  badgeText: string,
+}

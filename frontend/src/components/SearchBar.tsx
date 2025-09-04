@@ -21,4 +21,4 @@ const SearchBar: React.FC = () => {
   );
 };
 
-export default memo(SearchBar);
+export default memo(SearchBar)

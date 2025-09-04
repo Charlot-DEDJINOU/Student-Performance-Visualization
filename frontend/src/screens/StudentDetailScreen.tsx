@@ -17,6 +17,7 @@ import MasteryKey from "../components/MasteryKey";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../types/navigation";
 import type { StrandKey, StudentStrandInfo } from "../types/education";
+import { getStrandDisplayName } from "../utils/strands";
 
 type Props = NativeStackScreenProps<RootStackParamList, "StudentDetail">;
 
@@ -29,7 +30,6 @@ const StudentDetailScreen: React.FC<Props> = ({ route, navigation }) => {
     error,
     fetchStudents,
     getStudentById,
-    getStrandDisplayName,
     clearError,
   } = useStudentStore();
 
@@ -50,7 +50,6 @@ const StudentDetailScreen: React.FC<Props> = ({ route, navigation }) => {
         {
           text: "Download",
           onPress: () => {
-            // Implémente ici la vraie logique de téléchargement/partage (Print/Share)
             Alert.alert("Success", "Report downloaded successfully!");
           },
         },
@@ -104,9 +103,10 @@ const StudentDetailScreen: React.FC<Props> = ({ route, navigation }) => {
 
     const countEE = strandEntries.filter(([, d]) => d.competence === "EE").length;
     const countME = strandEntries.filter(([, d]) => d.competence === "ME").length;
+    const countAE = strandEntries.filter(([, d]) => d.competence === "AE").length;
     const countBE = strandEntries.filter(([, d]) => d.competence === "BE").length;
 
-    return { total, avg, countEE, countME, countBE };
+    return { total, avg, countEE, countME, countAE, countBE };
   }, [strandEntries]);
 
   return (
@@ -187,17 +187,22 @@ const StudentDetailScreen: React.FC<Props> = ({ route, navigation }) => {
 
               <View className="flex-row justify-between">
                 <Text className="text-gray-600">Exceeding Expectations:</Text>
-                <Text className="font-semibold text-blue-600">{summary.countEE}</Text>
+                <Text className="font-semibold text-competence-EE-700">{summary.countEE}</Text>
               </View>
 
               <View className="flex-row justify-between">
                 <Text className="text-gray-600">Meeting Expectations:</Text>
-                <Text className="font-semibold text-green-600">{summary.countME}</Text>
+                <Text className="font-semibold text-competence-ME-700">{summary.countME}</Text>
               </View>
 
               <View className="flex-row justify-between">
                 <Text className="text-gray-600">Needs Support:</Text>
-                <Text className="font-semibold text-red-600">{summary.countBE}</Text>
+                <Text className="font-semibold text-competence-AE-700">{summary.countAE}</Text>
+              </View>
+
+              <View className="flex-row justify-between">
+                <Text className="text-gray-600">Needs significant Support:</Text>
+                <Text className="font-semibold text-competence-BE-700">{summary.countBE}</Text>
               </View>
             </View>
           )}
