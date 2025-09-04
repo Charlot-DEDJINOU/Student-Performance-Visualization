@@ -6,6 +6,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifkas/restful-api-vercel.git"
+  },
+  "keywords": [
+    "restful",
+    "rest",
+    "api",
+    "vercel",
+    "json",
+    "server"
+  ],
+  "author": "Ivo Culic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ifkas/restful-api-vercel/issues"
+  },
+  "homepage": "https://github.com/ifkas/restful-api-vercel#readme",
   "dependencies": {},
   "devDependencies": {
     "json-server": "^0.17.1"
