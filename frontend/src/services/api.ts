@@ -33,7 +33,6 @@ http.interceptors.response.use(
     return res;
   },
   (error: AxiosError) => {
-    console.log(JSON.stringify(error))
     if (error.response) {
       const status = error.response.status;
       const payload = error.response.data;

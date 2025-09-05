@@ -175,34 +175,47 @@ const StudentDetailScreen: React.FC<Props> = ({ route, navigation }) => {
 
           {strandEntries.length > 0 && (
             <View className="space-y-3">
-              <View className="flex-row justify-between">
-                <Text className="text-gray-600">Average Progress:</Text>
-                <Text className="font-semibold text-gray-800">{summary.avg}%</Text>
+              <View>
+                <Text className="text-gray-600 mb-3">Average Progress: {summary.avg}%</Text>
+                <ProgressBar progress={summary.avg} showPercentage={false} />
               </View>
 
-              <View className="flex-row justify-between">
+              <View className="flex-row justify-between my-3">
                 <Text className="text-gray-600">Total Strands:</Text>
                 <Text className="font-semibold text-gray-800">{summary.total}</Text>
               </View>
 
-              <View className="flex-row justify-between">
-                <Text className="text-gray-600">Exceeding Expectations:</Text>
-                <Text className="font-semibold text-competence-EE-700">{summary.countEE}</Text>
-              </View>
-
-              <View className="flex-row justify-between">
-                <Text className="text-gray-600">Meeting Expectations:</Text>
-                <Text className="font-semibold text-competence-ME-700">{summary.countME}</Text>
-              </View>
-
-              <View className="flex-row justify-between">
-                <Text className="text-gray-600">Needs Support:</Text>
-                <Text className="font-semibold text-competence-AE-700">{summary.countAE}</Text>
-              </View>
-
-              <View className="flex-row justify-between">
-                <Text className="text-gray-600">Needs significant Support:</Text>
-                <Text className="font-semibold text-competence-BE-700">{summary.countBE}</Text>
+              <View>
+                <Text className="text-sm text-gray-600 font-medium mb-3 text-center">Quick Overview</Text>
+                <View className="flex-row justify-between items-center">
+                  <View className="items-center flex-1">
+                    <View className="w-12 h-12 bg-competence-EE-100 rounded-full items-center justify-center mb-2">
+                      <Text className="text-competence-EE-700 font-bold text-lg">{summary.countEE}</Text>
+                    </View>
+                    <Text className="text-xs text-gray-500 text-center">Exceeding</Text>
+                  </View>
+                  <View className="w-px h-8 bg-gray-200" />
+                  <View className="items-center flex-1">
+                    <View className="w-12 h-12 bg-competence-ME-100 rounded-full items-center justify-center mb-2">
+                      <Text className="text-competence-ME-700 font-bold text-lg">{summary.countME}</Text>
+                    </View>
+                    <Text className="text-xs text-gray-500 text-center">Meeting</Text>
+                  </View>
+                  <View className="w-px h-8 bg-gray-200" />
+                  <View className="items-center flex-1">
+                    <View className="w-12 h-12 bg-competence-AE-100 rounded-full items-center justify-center mb-2">
+                      <Text className="text-competence-AE-700 font-bold text-lg">{summary.countAE}</Text>
+                    </View>
+                    <Text className="text-xs text-gray-500 text-center">Support</Text>
+                  </View>
+                  <View className="w-px h-8 bg-gray-200" />
+                  <View className="items-center flex-1">
+                    <View className="w-12 h-12 bg-competence-BE-100 rounded-full items-center justify-center mb-2">
+                      <Text className="text-competence-BE-700 font-bold text-lg">{summary.countBE}</Text>
+                    </View>
+                    <Text className="text-xs text-gray-500 text-center">Significant</Text>
+                  </View>
+                </View>
               </View>
             </View>
           )}
