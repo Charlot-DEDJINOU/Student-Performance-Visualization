@@ -41,7 +41,7 @@ A **React Native (Expo)** application that allows teachers to track student perf
 ## 🎨 Design Decisions
 
 * **Custom Color Palette**:
-  Inspired by the Nyansapo AI logo. Configured in `tailwind.config.js` with extended scales for **primary** (`#63A7C9`) and **secondary** (`#F8D632`), as well as full palettes for each competence level (**BE = red, AE = yellow, ME = green, EE = blue**).
+  Inspired by the **Nyansapo AI** logo. Configured in `tailwind.config.js` with extended scales for **primary** (`#63A7C9`) and **secondary** (`#F8D632`), as well as full palettes for each competence level (**BE = red, AE = yellow, ME = green, EE = blue**).
 
 * **Layout Choices**:
 
