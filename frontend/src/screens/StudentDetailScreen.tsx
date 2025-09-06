@@ -112,6 +112,7 @@ const StudentDetailScreen: React.FC<Props> = ({ route, navigation }) => {
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
       <ScrollView
+        testID="student-scroll"
         className="flex-1"
         contentContainerStyle={{ padding: 16 }}
         refreshControl={<RefreshControl refreshing={loading} onRefresh={handleRefresh} />}
@@ -124,6 +125,7 @@ const StudentDetailScreen: React.FC<Props> = ({ route, navigation }) => {
               <Text className="text-gray-600 text-base">Student Performance Report</Text>
             </View>
             <TouchableOpacity
+              testID="download-btn"
               onPress={handleDownload}
               className="bg-primary-500 px-4 py-2 rounded-lg active:bg-primary-600"
             >
