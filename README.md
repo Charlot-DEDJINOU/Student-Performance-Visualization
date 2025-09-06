@@ -6,6 +6,7 @@ A **React Native (Expo)** application that allows teachers to track student perf
 
 * **APK Release (Preview)**: [Download APK](https://expo.dev/artifacts/eas/h3ANb52dptJup7bbZ6XVc3.apk)
 * **Figma Design**: [Link to Figma Design](https://www.figma.com/proto/n29quPZxfRVRbBaPoUvzg8/Nyansapo-AI-Student-Performance?node-id=1-2&t=XGQOjwNJPBvj9HvK-1)
+* **Video**: [Watch live demonstation](https://drive.google.com/file/d/1rHbPGx-tmWhha_MWqCrNpegB0gglbGL3/view?usp=sharing)
 * **Backend API**: [Link to Backend API](https://student-performance-visualization.vercel.app)
 
 ---
@@ -113,6 +114,7 @@ npm run start
 ```
 
 Scan the QR code with Expo Go (Android/iOS) to preview.
+👉 Note: Expo may ask you to log in to your Expo account before running the preview on your device.
 
 ### 5. **Build APK (Preview)**
 
