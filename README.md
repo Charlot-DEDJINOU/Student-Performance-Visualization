@@ -1,211 +1,263 @@
-# Student Performance Mobile App
+# Student Performance App 📚📱
 
-Une application mobile React Native avec Expo pour permettre aux enseignants de visualiser les performances des étudiants dans différents domaines d'apprentissage.
+A **React Native (Expo)** application that allows teachers to track student performance across different **learning strands** and visualize their mastery levels.
 
-## 🚀 Installation
+## 🚀 Demo
 
-### Prérequis
+* **APK Release (Preview)**: [Download APK](https://expo.dev/artifacts/eas/h3ANb52dptJup7bbZ6XVc3.apk)
+* **Figma Design**: [Link to Figma Design](https://www.figma.com/proto/n29quPZxfRVRbBaPoUvzg8/Nyansapo-AI-Student-Performance?node-id=1-2&t=XGQOjwNJPBvj9HvK-1)
+* **Backend API**: [Link to Backend API](https://student-performance-visualization.vercel.app)
 
-- Node.js (version 18 ou supérieure)
-- Expo CLI (`npm install -g expo-cli`)
-- Un émulateur Android/iOS ou l'app Expo Go sur votre téléphone
+---
 
-### Configuration du Backend (JSON Server)
+## 📖 Features
 
-1. Créez un fichier `db.json` dans un dossier séparé avec le contenu suivant :
+### **Class Performance Overview**
 
-```json
-{
-  "class_profile": {
-    "strands": [
-      {
-        "strandId": "strand1",
-        "strand": "Letter Identification",
-        "workCovered": 70,
-        "students": [
-          {
-            "studentId": "student1",
-            "name": "John Doe",
-            "competence": "ME"
-          },
-          {
-            "studentId": "student2",
-            "name": "Jane Smith",
-            "competence": "AE"
-          }
-        ]
-      },
-      {
-        "strandId": "strand2",
-        "strand": "Letter Naming",
-        "workCovered": 65,
-        "students": [
-          {
-            "studentId": "student1",
-            "name": "John Doe",
-            "competence": "AE"
-          },
-          {
-            "studentId": "student2",
-            "name": "Jane Smith",
-            "competence": "ME"
-          }
-        ]
-      },
-      {
-        "strandId": "strand3",
-        "strand": "Letter Formation",
-        "workCovered": 45,
-        "students": [
-          {
-            "studentId": "student1",
-            "name": "John Doe",
-            "competence": "BE"
-          },
-          {
-            "studentId": "student2",
-            "name": "Jane Smith",
-            "competence": "ME"
-          }
-        ]
-      },
-      {
-        "strandId": "strand4",
-        "strand": "Phonemic Awareness",
-        "workCovered": 80,
-        "students": [
-          {
-            "studentId": "student1",
-            "name": "John Doe",
-            "competence": "EE"
-          },
-          {
-            "studentId": "student2",
-            "name": "Jane Smith",
-            "competence": "AE"
-          }
-        ]
-      }
-    ]
-  },
-  "students": [
-    {
-      "id": "student1",
-      "name": "John Doe",
-      "strands": {
-        "letterIdentification": {
-          "competence": "ME",
-          "progress": 75
-        },
-        "letterNaming": {
-          "competence": "AE",
-          "progress": 50
-        },
-        "letterFormation": {
-          "competence": "BE",
-          "progress": 30
-        },
-        "phonemicAwareness": {
-          "competence": "EE",
-          "progress": 90
-        }
-      }
-    },
-    {
-      "id": "student2",
-      "name": "Jane Smith",
-      "strands": {
-        "letterIdentification": {
-          "competence": "AE",
-          "progress": 60
-        },
-        "letterNaming": {
-          "competence": "ME",
-          "progress": 80
-        },
-        "letterFormation": {
-          "competence": "ME",
-          "progress": 75
-        },
-        "phonemicAwareness": {
-          "competence": "AE",
-          "progress": 55
-        }
-      }
-    }
-  ]
-}
-```
+* 🔍 Search bar to filter students.
+* 📊 Overview of **4 learning strands**:
 
-2. Installez et démarrez JSON Server :
+  * Letter Identification
+  * Letter Naming
+  * Letter Formation
+  * Phonemic Awareness
+* 🏅 Display of student **competence levels** using **Mastery Keys** (BE, AE, ME, EE).
+* 📌 **Mastery Key panel** always fixed at the bottom for quick reference.
+
+### **Student Detail Screen**
+
+* 👤 Student profile with name and a **Download** button (shows a confirmation alert and a success message).
+* 📈 Detailed progress per strand:
+
+  * Current competence level (colored badge: BE, AE, ME, EE).
+  * Work progress percentage with an animated **progress bar**.
+* 📊 **Performance Summary** section:
+
+  * Average progress across strands.
+  * Count of strands per competence level.
+
+---
+
+## 🎨 Design Decisions
+
+* **Custom Color Palette**:
+  Inspired by the Nyansapo AI logo. Configured in `tailwind.config.js` with extended scales for **primary** (`#63A7C9`) and **secondary** (`#F8D632`), as well as full palettes for each competence level (**BE = red, AE = yellow, ME = green, EE = blue**).
+
+* **Layout Choices**:
+
+  * Fixed **header** at the top with title + search bar.
+  * Fixed **Mastery Key** at the bottom for continuous visibility.
+  * Scrollable **Learning Strands** section in between.
+  * Mastery Key displayed as cards with code, meaning, and description for clarity.
+
+* **Reusable Components**:
+
+  * `CompetenceBadge` → shows competence code with custom colors and sizes.
+  * `ProgressBar` → generic progress indicator with optional percentage text.
+  * `StrandCard` → displays a learning strand with its title, overall progress bar, and a list of students (each with their competence badge).
+
+* **Accessibility**:
+
+  * Usage of `SafeAreaView`.
+  * High contrast colors for readability.
+  * Clear text hierarchy.
+
+---
+
+## 📝 Assumptions
+
+* Student and strand data come from the provided backend (JSON Server).
+* Each student always has **4 strands** (`letterIdentification`, `letterNaming`, `letterFormation`, `phonemicAwareness`).
+* The **Download** button is a simulation: it shows an alert with confirmation and a success message, not a real file download.
+* The app should run in **Expo Go** as well as in a **standalone APK**, which is why a deployed backend URL is configured.
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1. **Clone the repository**
+
 ```bash
-npm install -g json-server
-json-server --watch db.json --port 3000
+git clone https://github.com/Charlot-DEDJINOU/Student-Performance-Visualization.git
+cd frontend
 ```
 
-### Installation de l'application
+### 2. **Install dependencies**
 
-1. Clonez le projet et installez les dépendances :
 ```bash
 npm install
 ```
 
-2. Générez les types Tailwind (si nécessaire) :
-```bash
-npx tailwindcss init
+### 3. **Set up environment variables**
+
+Create a `.env` file at the root of `frontend/`:
+
+```env
+EXPO_PUBLIC_API_URL=https://student-performance-visualization.vercel.app
 ```
 
-3. Démarrez l'application :
+> ⚠️ For local development, you can run the provided backend:
+>
+> ```bash
+> cd backend
+> npm install -g json-server
+> json-server --watch db.json --port 3000
+> ```
+>
+> Then set `EXPO_PUBLIC_API_URL=http://localhost:3000`.
+
+### 4. **Run the app**
+
 ```bash
-npm start
+npm run start
 ```
 
-## 📱 Utilisation
+Scan the QR code with Expo Go (Android/iOS) to preview.
 
-### Écran Principal (Class Performance Overview)
-- **Recherche** : Utilisez la barre de recherche pour filtrer les étudiants
-- **Mastery Key** : Panneau de référence toujours visible montrant les niveaux de compétence
-- **Learning Strands** : Chaque domaine d'apprentissage affiche :
-  - Le nom du domaine
-  - Le pourcentage de travail couvert (avec barre de progression)
-  - La liste des étudiants avec leurs niveaux de compétence
-  - Navigation vers les détails en tapant sur un étudiant
+### 5. **Build APK (Preview)**
 
-### Écran de Détail Étudiant
-- **Profil étudiant** : Nom et bouton de téléchargement de rapport
-- **Performance détaillée** : Pour chaque domaine :
-  - Niveau de compétence actuel (badge coloré)
-  - Progression du travail (pourcentage et barre)
-- **Résumé des performances** : Statistiques générales
-
-## 🏗️ Architecture
-
-### Technologies Utilisées
-- **React Native** : Framework mobile
-- **Expo** : Plateforme de développement
-- **NativeWind** : Styling avec Tailwind CSS
-- **React Navigation** : Navigation entre écrans
-- **Zustand** : Gestion d'état globale
-- **JSON Server** : API backend simulée
-
-## 📋 API Endpoints
-
-- `GET /class_profile` : Profil de classe avec domaines et étudiants
-- `GET /students` : Liste détaillée des étudiants avec leurs performances
-
-### Logs de Debug
 ```bash
-# Voir les logs Expo
-npx expo start --dev-client
-
-# Logs du serveur
-json-server --watch db.json --port 3000 --verbose
+eas build -p android --profile preview
 ```
 
-## 📝 Décisions de Design
+---
 
-1. **NativeWind** : Choisi pour la cohérence avec Tailwind CSS et la facilité de maintenance
-2. **Zustand** : Store léger et simple pour la gestion d'état
-3. **Couleurs sémantiques** : Configuration centralisée pour faciliter les changements de thème
-4. **Composants modulaires** : Réutilisables et maintenables
-5. **Gestion d'erreur robuste** : États de chargement et messages d'erreur clairs
+## 🧪 Testing
+
+### Run tests
+
+```bash
+npm run test
+```
+
+### Tools
+
+* **Jest and jest-expo** – testing framework.
+* **@testing-library/react-native** – UI testing utilities.
+* **axios-mock-adapter** – mocking HTTP requests in services.
+
+### Covered test cases
+
+* **Services (`studentService`)**:
+
+  * Successfully fetch class profile and students.
+  * Validate that the API returns an array.
+  * Handle server errors (500).
+* **Store (`useStudentStore`)**:
+
+  * `fetchStudents` updates state correctly.
+  * `getFilteredStudents` filters by search query.
+* **UI Components**:
+
+  * `CompetenceBadge` → renders the correct code with the expected Tailwind-based colors and sizes.  
+  * `ProgressBar` → clamps progress values between 0–100 and displays the percentage text when enabled.  
+  * `MasteryKey` → renders the "Mastery Key" header and displays 4 horizontal cards with the correct competence levels and descriptions.
+
+* **Screens**:
+
+  * `ClassOverviewScreen` shows strands, search bar, and Mastery Key.
+  * `StudentDetailScreen`:
+
+    * Displays loading spinner when fetching.
+    * Shows error message with retry.
+    * Handles “Student Not Found”.
+    * Displays student details and strand performance.
+    * **Download button** shows confirmation → success alert.
+    * Pull-to-refresh triggers `clearError` + `fetchStudents`.
+
+---
+
+## 📂 Project Structure
+
+```
+frontend/
+├── index.tsx                 # Entry point of the React Native app
+├── app.json                # Expo app configuration
+├── babel.config.js          # Babel configuration
+├── metro.config.js          # Metro bundler configuration
+├── global.css              # Tailwind (NativeWind) global styles
+├── tailwind.config.js      # Tailwind (NativeWind) Configuration
+├── package.json            # Project dependencies & scripts
+├── tsconfig.json            # TypeScript configuration
+├── .env                    # Environment variables
+├── assets                   # images folders
+├── src/
+│   ├── App.tsx         # Entry point of the React Native app
+│   ├── components/         # Reusable UI components
+│   │   ├── CompetenceBadge.tsx
+│   │   ├── ProgressBar.tsx
+│   │   ├── SearchBar.tsx
+│   │   ├── StrandCard.tsx
+│   │   ├── MasteryKey.tsx
+│   │   ├── LoadingSpinner.tsx
+│   │   └── ErrorMessage.tsx
+|   |
+│   │
+│   ├── screens/            # App screens
+│   │   ├── ClassOverviewScreen.tsx
+│   │   └── StudentDetailScreen.tsx
+│   │
+│   ├── stores/             # Zustand global state management
+│   │   └── useStudentStore.ts
+│   │
+│   ├── services/           # API service (axios + HttpError handling)
+│   │   └── studentService.ts
+│   │
+│   ├── types/              # TypeScript type definitions
+│   │   └── education.ts
+│   │   └── navigation.ts
+│   │
+│   ├── utils/              # Utility functions (e.g., getStrandDisplayName, competence classes)
+│   │   └── competence.ts
+│   │   └── strands.ts
+│   │
+│   └── __tests__/          # Unit tests
+│       ├── studentService.test.ts
+│       ├── useStudentStore.test.ts
+│       ├── ClassOverviewScreen.test.tsx
+│       ├── StudentDetailScreen.test.tsx
+│       ├── CompetenceBadge.test.tsx
+│       ├── MasteryKey.test.tsx
+│       └── ProgressBar.test.tsx
+└── backend/                # Provided JSON Server backend (db.json + setup)
+```
+
+---
+
+## 🛠️ Tech Stack
+
+* **React Native (Expo 53)** – Cross-platform mobile framework.
+* **React Navigation** – Stack-based navigation.
+* **Zustand** – Lightweight state management.
+* **Axios** – HTTP client.
+* **Tailwind (NativeWind)** – Utility-first styling.
+* **React Native Reanimated** – Smooth animations.
+* **Jest + Testing Library** – Unit and UI testing.
+* **JSON Server (Backend)** – Mock API provider.
+
+---
+
+## ✅ Best Practices
+
+* **Error Handling**:
+
+  * Custom `HttpError` class.
+  * `ErrorMessage` component with retry button.
+  * Robust `try/catch` around API calls.
+
+* **State Management**:
+
+  * Centralized store using Zustand.
+  * Selectors for filtering (`getFilteredStudents`, `getStudentById`).
+  * Clear loading/error states.
+
+* **Performance**:
+
+  * `React.memo`, `useCallback`, `useMemo` used to avoid unnecessary re-renders.
+  * `FlatList` with horizontal/vertical scroll optimizations.
+
+* **UI/UX**:
+
+  * Clean, consistent design following Figma.
+  * Fixed header and bottom panel.
+  * Accessible colors and typography.
